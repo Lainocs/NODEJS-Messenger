@@ -19,10 +19,14 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     createdAt: {
-      defaultValue: new Date()
-    }  }, {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW
+    },
+  },{
     sequelize,
     modelName: 'Message',
-  });
+    }
+  );
   return Message;
 };

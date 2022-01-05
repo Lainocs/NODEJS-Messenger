@@ -1,8 +1,13 @@
+const UserController = require('./controllers/UserController');
+
 const express = require('express')
 const { Server } = require('socket.io')
+const models = require('./models')
+const bcrypt = require('bcrypt')
 const port = 3000
 const app = express()
 const { Sequelize } = require('sequelize')
+const dotenv = require('dotenv')
 dotenv.config();
 
 const database = process.env.DB_NAME
@@ -22,8 +27,11 @@ try {
 }
 
 app.get('/', (req, res) => {
-    res.send('Bruh + zizibouche')
+    res.send('Hello World!')
 })
+
+app.post('/login', UserController.login)
+
 
 app.listen(port, () => {
     console.log(`App listening on http://localhost:${port}`)
