@@ -14,25 +14,21 @@ try {
     throw new Error('Unable to connect to the database: ' + error);
 }
 
-class User extends Model {}
+class Message extends Model {}
 
-User.init({
+Message.init({
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true
     },
-    login: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    password: {
+    content: {
         type: DataTypes.STRING,
         allowNull: false
     }
 }, {
     sequelize,
-    modelName: 'User'
+    modelName: 'Message'
 });
 
-User.sync()
+Message.sync()
