@@ -10,7 +10,7 @@ app.get('/', (req, res) => {
 
 
 app.get('/zizi', (req, res) => {
-    db.query('')
+    res.send(db)
 })
 
 app.listen(port, () => {
