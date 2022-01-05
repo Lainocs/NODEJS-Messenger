@@ -8,11 +8,6 @@ app.get('/', (req, res) => {
     res.send('Bruh + zizibouche')
 })
 
-
-app.get('/zizi', (req, res) => {
-    db.query('')
-})
-
 app.listen(port, () => {
     console.log(`App listening on http://localhost:${port}`)
 })
