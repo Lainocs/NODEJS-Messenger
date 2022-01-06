@@ -22,6 +22,8 @@ route.get('/add-user', services.addUserRoutes)
  */
 route.get('/update-user', services.updateUserRoutes)
 
+route.get('/messages/:id', services.messagesRoutes)
+
 // API
 route.post('/api/users', controller.create)
 route.get('/api/users', controller.find)

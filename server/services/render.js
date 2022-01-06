@@ -15,8 +15,15 @@ exports.addUserRoutes = (req, res) => {
     res.render('add_user')
 }
 
+exports.messagesRoutes = (req, res) => {
+    axios.get(`http://localhost:${port}/api/users`, {params: {id: req.query.id}})
+        .then(function(response) {
+            res.render('messages', {users: response.data})
+        })
+}
+
 exports.updateUserRoutes = (req, res) => {
-        axios.get(`http://localhost:${port}/api/users`, {params: {id: req.query.id}})
+    axios.get(`http://localhost:${port}/api/users`, {params: {id: req.query.id}})
         .then(function(userdata) {
             res.render('update_user', {user: userdata.data})
         })
