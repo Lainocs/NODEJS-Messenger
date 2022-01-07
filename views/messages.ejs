@@ -94,21 +94,10 @@
 
         if (input.value) {
             socket.emit('chat message', {
+                userId: id,
                 content: content,
             });
         }
-
-        await fetch("http://localhost:3000/api/messages", {
-            method: "POST",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                content,
-                id
-            })
-        })
 
         input.value = ''
     });

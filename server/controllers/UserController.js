@@ -147,17 +147,3 @@ exports.verifyLogin = async (req, res) => {
         console.log(err);
     }
 }
-
-exports.currentUser = async (req, res) => {
-    try {
-        // Get user input
-        const { userId } = req.body;
-
-        // Validate if user exist in our database
-        const user = await User.findOne({ _id });
-
-        res.status(200).json({username: user.name});
-    } catch (err) {
-        console.log(err);
-    }
-}

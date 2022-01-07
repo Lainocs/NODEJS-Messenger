@@ -5,17 +5,35 @@ const bodyparser = require('body-parser')
 const path = require('path')
 const http = require('http')
 const { Server } = require('socket.io')
-const MessageController = require('./server/controllers/MessageController')
 
 const connectDB = require('./server/database/connection')
+const User = require("./server/models/User");
+const Message = require("./server/models/Message");
 
 const app = express()
 const server = http.createServer(app)
 const io = new Server(server)
 
 io.on('connection', (socket) => {
-    socket.on('chat message', (msg) => {
-        MessageController.create
+    socket.on('chat message', async (msg) => {
+        let id = msg.userId
+        let content = msg.content
+
+        const user = await User.findOne({ id });
+
+        // Create message
+        const message = new Message({
+            userId: user._id,
+            content: content,
+        })
+
+        message.save(message).then((result) => {
+            res.status(200).json(result)
+        }).catch((err) => {
+            res.status(500).send({
+                message: err.message || "An error has occurred"
+            })
+        })
         io.emit('chat message', msg)
     })
 })

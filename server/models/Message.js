@@ -13,9 +13,3 @@ var schema = new mongooose.Schema(
 })
 
 module.exports = mongooose.model('messagedb', schema)
-
-// exports.search = (req, res) => {
-//     Messagedb.find({}, (err, docs) => {
-//         console.log("Aller la")
-//     })
-// }
