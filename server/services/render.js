@@ -11,6 +11,10 @@ exports.homeRoutes = (req, res) => {
         })
 }
 
+exports.loginRoutes = (req, res) => {
+    res.render('login')
+}
+
 exports.addUserRoutes = (req, res) => {
     res.render('add_user')
 }

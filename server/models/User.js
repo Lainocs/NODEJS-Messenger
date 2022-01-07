@@ -10,6 +10,10 @@ var schema = new mongooose.Schema({
         required: true,
         unique: true
     },
+    password: {
+        type: String,
+        required: true
+    },
     gender: String,
     status: String
 

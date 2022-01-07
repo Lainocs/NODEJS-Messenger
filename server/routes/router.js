@@ -10,6 +10,9 @@ const controller = require('../controllers/UserController')
  */
 route.get('/', services.messagesRoutes)
 
+route.get('/login', services.loginRoutes)
+route.post('/login', controller.verifyLogin)
+
 /**
  * @description: Add User
  * @method: GET /add-user

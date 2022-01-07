@@ -26,6 +26,10 @@
                     <input type="text" name="email" id="email" value="<%= user.email %>" class="form-control" placeholder="Enter email">
                 </div>
                 <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="text" name="password" id="password" value="<%= user.password %>" class="form-control" placeholder="Enter password">
+                </div>
+                <div class="form-group">
                     <label for="gender">Gender</label>
                     <div class="radio inline">
                         <input type="radio" name="gender" id="gender" class="form-control" value="Male"<%= user.gender == 'Male' ? 'checked' : '' %>>

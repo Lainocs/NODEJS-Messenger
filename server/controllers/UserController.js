@@ -1,5 +1,6 @@
 var Userdb = require('../models/User')
-
+const bcrypt = require('bcrypt')
+const saltRounds = 10
 // create and save new user
 exports.create = (req, res) => {
     // validate req
@@ -8,10 +9,14 @@ exports.create = (req, res) => {
         return
     }
 
+    req.body.password = bcrypt.hashSync(req.body.password, saltRounds)
+
+
     // create new user
     const user = new Userdb({
         name: req.body.name,
         email: req.body.email,
+        password: req.body.password,
         gender: req.body.gender,
         status: req.body.status
     })
@@ -108,4 +113,23 @@ exports.delete = (req, res) => {
             message: `Error deleting user with id ${id}`
         })
     })
+}
+
+exports.verifyLogin = (req, res) => {
+    Userdb.findOne({email: req.body.email})
+        .then(data => {
+            if(!data) {
+                res.status(404).send({
+                    message: `User with email ${req.body.email} not found`
+                })
+            } else {
+                if(data.password === req.body.password) {
+                    res.send(data)
+                } else {
+                    res.status(401).send({
+                        message: `Password is incorrect`
+                    })
+                }
+            }
+        })
 }
