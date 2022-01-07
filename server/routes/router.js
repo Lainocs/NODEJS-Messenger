@@ -8,7 +8,7 @@ const controller = require('../controllers/UserController')
  * @description: Home page
  * @method: GET /
  */
-route.get('/', services.homeRoutes)
+route.get('/', services.messagesRoutes)
 
 /**
  * @description: Add User
@@ -22,7 +22,7 @@ route.get('/add-user', services.addUserRoutes)
  */
 route.get('/update-user', services.updateUserRoutes)
 
-route.get('/messages/:id', services.messagesRoutes)
+route.get('/admin', services.homeRoutes)
 
 // API
 route.post('/api/users', controller.create)
