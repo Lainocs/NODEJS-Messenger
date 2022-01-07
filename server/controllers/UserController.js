@@ -27,7 +27,7 @@ exports.create = (req, res) => {
         .save(user)
         .then((result) => {
             // res.send(result)
-            res.redirect('/add-user')
+            res.redirect('/admin')
         })
         .catch((err) => {
             res.status(500).send({
@@ -143,20 +143,6 @@ exports.verifyLogin = async (req, res) => {
             res.status(200).json({token: token, userId: user._id});
         }
         res.status(400).send("Invalid Credentials");
-    } catch (err) {
-        console.log(err);
-    }
-}
-
-exports.currentUser = async (req, res) => {
-    try {
-        // Get user input
-        const { userId } = req.body;
-
-        // Validate if user exist in our database
-        const user = await User.findOne({ _id });
-
-        res.status(200).json({username: user.name});
     } catch (err) {
         console.log(err);
     }
