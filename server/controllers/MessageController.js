@@ -1,19 +1,23 @@
-let Messagedb = require('../models/Message');
+const Message = require('../models/Message');
+const User = require("../models/User");
 
-exports.create = (res, req) => {
+exports.create = async (req, res) => {
     if(!req.body) {
         res.status(400).send('Request body is missing !')
-        return
     }
 
+    let id = req.body.id
+
+    const user = await User.findOne({ id });
+
     // Create message
-    const message = new Messagedb({
-        userId: req.body.userId,
-        content: req.body.content
+    const message = new Message({
+        userId: user._id,
+        content: req.body.content,
     })
 
     message.save(message).then((result) => {
-        res.send(result)
+        res.status(200).json(result)
     }).catch((err) => {
         res.status(500).send({
             message: err.message || "An error has occurred"
