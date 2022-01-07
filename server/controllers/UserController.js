@@ -1,5 +1,6 @@
-var Userdb = require('../models/User')
+const User = require('../models/User')
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 const saltRounds = 10
 // create and save new user
 exports.create = (req, res) => {
@@ -13,7 +14,7 @@ exports.create = (req, res) => {
 
 
     // create new user
-    const user = new Userdb({
+    const user = new User({
         name: req.body.name,
         email: req.body.email,
         password: req.body.password,
@@ -40,7 +41,7 @@ exports.find = (req, res) => {
 
     if(req.query.id) {
         const id = req.query.id
-        Userdb.findById(id)
+        User.findById(id)
             .then(data => {
                 if(!data) {
                     res.status(404).send({
@@ -56,7 +57,7 @@ exports.find = (req, res) => {
                 })
             })
     } else {
-        Userdb.find()
+        User.find()
             .then((users) => {
                 res.send(users)
             })
@@ -76,7 +77,7 @@ exports.update = (req, res) => {
     }
 
     const id = req.params.id
-    Userdb.findByIdAndUpdate(id, req.body, {useFindAndModify: false})
+    User.findByIdAndUpdate(id, req.body, {useFindAndModify: false})
     .then(data => {
         if(!data) {
             res.status(404).send({
@@ -96,7 +97,7 @@ exports.update = (req, res) => {
 // delete user
 exports.delete = (req, res) => {
     const id = req.params.id
-    Userdb.findByIdAndDelete(id, {useFindAndModify: false})
+    User.findByIdAndDelete(id, {useFindAndModify: false})
     .then(data => {
         if(!data) {
             res.status(404).send({
@@ -115,20 +116,48 @@ exports.delete = (req, res) => {
     })
 }
 
-exports.verifyLogin = (req, res) => {
-    Userdb.findOne({email: req.body.email})
-        .then(data => {
-            if(!data) {
-                res.status(404).send({
-                    message: `User with email ${req.body.email} not found`
-                })
-            } else {
-                if(bcrypt.compareSync(req.body.password, data.password)) {
-                    res.redirect('/')
-                } else {
-                    res.redirect('/login')
-                    
+exports.verifyLogin = async (req, res) => {
+    // Our login logic starts here
+    try {
+        // Get user input
+        const { email, password } = req.body;
+
+        // Validate user input
+        if (!(email && password)) {
+            res.status(400).send("All input is required");
+        }
+        // Validate if user exist in our database
+        const user = await User.findOne({ email });
+
+        if (user && (await bcrypt.compare(password, user.password))) {
+            // Create token
+            const token = jwt.sign(
+                { user_id: user._id, email },
+                process.env.TOKEN_KEY,
+                {
+                    expiresIn: "2h",
                 }
-            }
-        })
+            );
+
+            // user
+            res.status(200).json({token: token, userId: user._id});
+        }
+        res.status(400).send("Invalid Credentials");
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+exports.currentUser = async (req, res) => {
+    try {
+        // Get user input
+        const { userId } = req.body;
+
+        // Validate if user exist in our database
+        const user = await User.findOne({ _id });
+
+        res.status(200).json({username: user.name});
+    } catch (err) {
+        console.log(err);
+    }
 }

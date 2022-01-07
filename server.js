@@ -6,7 +6,9 @@ const path = require('path')
 
 const connectDB = require('./server/database/connection')
 
-const app = express()
+const http = require("http");
+const app = express();
+const server = http.createServer(app);
 
 dotenv.config({ path: './.env' })
 const port = process.env.PORT || 3000
@@ -25,9 +27,11 @@ app.use('/css', express.static(path.resolve(__dirname, 'assets/css')))
 app.use('/img', express.static(path.resolve(__dirname, 'assets/img')))
 app.use('/js', express.static(path.resolve(__dirname, 'assets/js')))
 
+app.use(express.json())
+
 //load router
 app.use('/', require('./server/routes/router'))
 
-app.listen(port, () => { 
+server.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`)
 })
