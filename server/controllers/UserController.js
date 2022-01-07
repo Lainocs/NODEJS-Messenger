@@ -123,12 +123,11 @@ exports.verifyLogin = (req, res) => {
                     message: `User with email ${req.body.email} not found`
                 })
             } else {
-                if(data.password === req.body.password) {
-                    res.send(data)
+                if(bcrypt.compareSync(req.body.password, data.password)) {
+                    res.redirect('/')
                 } else {
-                    res.status(401).send({
-                        message: `Password is incorrect`
-                    })
+                    res.redirect('/login')
+                    
                 }
             }
         })
