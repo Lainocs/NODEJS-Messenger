@@ -155,12 +155,15 @@ table td, table th {
 }
 
 #update_user .form-group,
-#add_user .form-group {
+#add_user .form-group,
+#login .form-group {
     margin: .4em 0;
 }
 
 #update_user .form-group input[type="text"],
-#add_user .form-group input[type="text"] {
+#add_user .form-group input[type="text"],
+#login .form-group input[type="email"],
+#login .form-group input[type="password"] {
     width: 100%;
     padding: .6em 1em;
     margin: .5em 0;
@@ -216,7 +219,8 @@ table td, table th {
 }
 
 #update_user .form-group .btn,
-#add_user .form-group .btn {
+#add_user .form-group .btn,
+#login .form-group .btn {
     width: 100%;
     padding: .9em 1em;
     background-color: #dae989;
@@ -229,7 +233,8 @@ table td, table th {
 }
 
 #update_user .form-group .btn:hover,
-#add_user .form-group .btn:hover {
+#add_user .form-group .btn:hover,
+#login .form-group .btn:hover {
     background-color: var(--dark);
     color: #ffffff;
 }
