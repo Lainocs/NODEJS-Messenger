@@ -17,13 +17,13 @@ route.post('/login', controller.verifyLogin)
  * @description: Add User
  * @method: GET /add-user
  */
-route.get('/add-user', services.addUserRoutes)
+route.get('/admin/add-user', services.addUserRoutes)
 
 /**
  * @description: Update User
  * @method: GET /update-user
  */
-route.get('/update-user', services.updateUserRoutes)
+route.get('/admin/update-user', services.updateUserRoutes)
 
 route.get('/admin', services.homeRoutes)
 

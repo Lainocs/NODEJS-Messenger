@@ -25,7 +25,7 @@ $("#update_user").submit(function(event) {
     })
 })
 
-if(window.location.pathname == "/") {
+if(window.location.pathname == "/admin") {
     $ondelete = $(".table tbody td a.delete")
     $ondelete.click(function(event) {
         event.preventDefault();
