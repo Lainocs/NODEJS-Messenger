@@ -3,10 +3,20 @@ const dotenv = require('dotenv')
 const morgan = require('morgan')
 const bodyparser = require('body-parser')
 const path = require('path')
+const http = require('http')
+const { Server } = require('socket.io')
 
 const connectDB = require('./server/database/connection')
 
 const app = express()
+const server = http.createServer(app)
+const io = new Server(server)
+
+io.on('connection', (socket) => {
+    socket.on('chat message', (msg) => {
+        io.emit('chat message', msg)
+    })
+})
 
 dotenv.config({ path: './.env' })
 const port = process.env.PORT || 3000
@@ -28,6 +38,6 @@ app.use('/js', express.static(path.resolve(__dirname, 'assets/js')))
 //load router
 app.use('/', require('./server/routes/router'))
 
-app.listen(port, () => { 
+server.listen(port, () => { 
     console.log(`Server is running on http://localhost:${port}`)
 })
