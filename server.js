@@ -5,7 +5,7 @@ const bodyparser = require('body-parser')
 const path = require('path')
 const http = require('http')
 const { Server } = require('socket.io')
-const Message = require('./server/controllers/MessageController')
+const MessageController = require('./server/controllers/MessageController')
 
 const connectDB = require('./server/database/connection')
 
@@ -15,7 +15,7 @@ const io = new Server(server)
 
 io.on('connection', (socket) => {
     socket.on('chat message', (msg) => {
-        Message.create
+        MessageController.create
         io.emit('chat message', msg)
     })
 })

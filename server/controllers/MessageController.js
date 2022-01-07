@@ -1,19 +1,22 @@
 const Message = require('../models/Message');
 const User = require("../models/User");
+const {log} = require("nodemon/lib/utils");
 
 exports.create = async (req, res) => {
     if(!req.body) {
         res.status(400).send('Request body is missing !')
     }
 
-    let id = req.body.id
+    const { content, id } = req.body;
+
+    console.log(content, id)
 
     const user = await User.findOne({ id });
 
     // Create message
     const message = new Message({
         userId: user._id,
-        content: req.body.content,
+        content: content,
     })
 
     message.save(message).then((result) => {
