@@ -13,7 +13,7 @@ exports.create = (res, req) => {
     })
 
     message.save(message).then((result) => {
-        res.send(result)
+        res.redirect('add-message')
     }).catch((err) => {
         res.status(500).send({
             message: err.message || "An error has occurred"

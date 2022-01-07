@@ -2,7 +2,8 @@ const express = require('express')
 const route = express.Router()
 
 const services = require('../services/render')
-const controller = require('../controllers/UserController')
+const UserController = require('../controllers/UserController')
+const MessageController = require('../controllers/MessageController')
 
 /**
  * @description: Home page
@@ -14,20 +15,26 @@ route.get('/', services.messagesRoutes)
  * @description: Add User
  * @method: GET /add-user
  */
-route.get('/add-user', services.addUserRoutes)
+// Admin
+route.get('/admin/add-user', services.addUserRoutes)
 
 /**
  * @description: Update User
  * @method: GET /update-user
  */
-route.get('/update-user', services.updateUserRoutes)
+route.get('/admin/update-user', services.updateUserRoutes)
 
 route.get('/admin', services.homeRoutes)
 
-// API
-route.post('/api/users', controller.create)
-route.get('/api/users', controller.find)
-route.put('/api/users/:id', controller.update)
-route.delete('/api/users/:id', controller.delete)
+// User
+route.post('/api/users', UserController.create)
+route.get('/api/users', UserController.find)
+route.put('/api/users/:id', UserController.update)
+route.delete('/api/users/:id', UserController.delete)
+
+// Message
+route.post('/api/messages/:id', MessageController.create)
+
+
 
 module.exports = route

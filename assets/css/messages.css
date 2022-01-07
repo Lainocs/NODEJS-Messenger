@@ -375,3 +375,14 @@ ul {
     margin-bottom: 2rem;
     box-shadow: none;
 }
+
+.send-msg {
+    background-color: cornflowerblue;
+    width: 70px;
+    padding: 5px 0;
+    border: none;
+    border-radius: 20px;
+    color: white;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
