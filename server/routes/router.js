@@ -33,7 +33,7 @@ route.put('/api/users/:id', UserController.update)
 route.delete('/api/users/:id', UserController.delete)
 
 // Message
-route.post('/api/messages/:id', MessageController.create)
+route.post('/api/messages', MessageController.create)
 
 
 
