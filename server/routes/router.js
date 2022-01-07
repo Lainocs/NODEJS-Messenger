@@ -10,6 +10,7 @@ const MessageController = require('../controllers/MessageController')
  * @method: GET /
  */
 route.get('/', services.messagesRoutes)
+route.post('/', controller.currentUser)
 
 route.get('/login', services.loginRoutes)
 route.post('/login', controller.verifyLogin)

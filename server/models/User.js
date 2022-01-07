@@ -1,6 +1,6 @@
 const mongooose = require('mongoose')
 
-var schema = new mongooose.Schema({
+const schema = new mongooose.Schema({
     name: {
         type: String,
         required: true
@@ -19,6 +19,4 @@ var schema = new mongooose.Schema({
 
 })
 
-const Userdb = mongooose.model('userdb', schema)
-
-module.exports = Userdb
+module.exports = mongooose.model('userdb', schema)
