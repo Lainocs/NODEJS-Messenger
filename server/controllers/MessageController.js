@@ -2,13 +2,12 @@ const { Messagedb, search } = require('../models/Message');
 var Userdb = require ('../models/User')
 
 exports.create = (req, res) => {
-    console.log("zizi")
     if(!req.body) {
         res.status(400).send('Request body is missing !')
         return
     }
 
-    const user = new Userdb.search
+    const user = new Userdb.
 
     // Create message
     const message = new Messagedb({

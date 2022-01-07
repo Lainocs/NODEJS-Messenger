@@ -5,6 +5,7 @@ const bodyparser = require('body-parser')
 const path = require('path')
 const http = require('http')
 const { Server } = require('socket.io')
+const Message = require('./server/models/Message')
 
 const connectDB = require('./server/database/connection')
 
